@@ -20,7 +20,8 @@ class App extends React.Component {
 
       fetch('https://api.citybik.es/v2/networks/hubway?fields=stations')
       .then(res => res.json())
-      .then(parsedJSON => parsedJSON.stations.map(station => (
+      .then(parsedJSON => console.log(parsedJSON.network.stations))
+      .then(parsedJSON => parsedJSON.networks.map(station => (
         {
           name: `${network.station.name}`,
           free_bikes: `${network.station.free_bikes}`,
