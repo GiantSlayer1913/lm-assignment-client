@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      bikes: []
+      stations: []
     }
   }
 
@@ -18,10 +18,24 @@ class App extends React.Component {
 
   fetchData() {
 
+      fetch('https://api.citybik.es/v2/networks/hubway?fields=stations')
+      .then(res => res.json())
+      .then(parsedJSON => parsedJSON.stations.map(station => (
+        {
+          name: `${network.station.name}`,
+          free_bikes: `${network.station.free_bikes}`,
+          empty_slots: `${network.station.empty_slots}`
+      }
+    )))
+    .then(stations => this.setState({
+      stations,
+      isLoading: false
+    }))
+      .catch(error => console.log('parsing failed', error))
   }
 
     render() {
-      const {isLoading, bikes} = this.state;
+      const {isLoading, stations} = this.state;
 
         return (
             <div>
@@ -34,9 +48,10 @@ class App extends React.Component {
                 <div className={`content ${isLoading ? 'is-loading' : ''}`}>
                     <div className="panel-group">
                       {
-                        !isLoading && bikes.length > 0 ? bikes.map(bike => {
-                          return <Collapsible title="Overview">
-                              <p>Lorem ipsum dolor sit amet.</p>
+                        !isLoading && stations.length > 0 ? stations.map(station => {
+                          const {name, free_bikes, empty_slots} = station;
+                          return <Collapsible key={station} title={name}>
+                              <p>{free_bikes}<br />{empty_slots}</p>
                           </Collapsible>
                         }) : null
 
