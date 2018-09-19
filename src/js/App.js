@@ -21,13 +21,17 @@ class App extends React.Component {
   }
 
     render() {
+      const {isLoading} = this.state;
+
         return (
             <div>
                 <header>
                     <img src={image} />
-                    <h1>Collapsible Content</h1>
+                    <h1>Bike Rental Availability <button className="btn btn sm btn danger">Fetch now
+                    </button>
+                    </h1>
                 </header>
-                <div className="content">
+                <div className={`content ${isLoading ? 'is-loading' : ''}`}>
                     <div className="panel-group">
                         <Collapsible title="Overview">
                             <p>Lorem ipsum dolor sit amet.</p>
