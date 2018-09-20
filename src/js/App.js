@@ -20,27 +20,46 @@ class App extends React.Component {
     }
 
   componentDidMount() {
-    this.fetchData();
+    const date = localStorage.getItem('stationsDate');
+    const stationsDate = date && new Date(parseInt(date));
+    const now = new Date();
+    const dataAge = Math.round((now - stationsDate) / (1000 * 60)); // in minutes
+    const tooOld = dataAge >= 1;
+      if(tooOld){
+          this.fetchData();
+      } else {
+          console.log(`Using data from localStorage that are ${dataAge} minutes old.`);
+      }
   }
 
   fetchData() {
 
+    this.setState({
+            isLoading: true,
+            stations: []
+        })
+
       fetch('https://api.citybik.es/v2/networks/hubway?fields=stations')
       .then(res => res.json())
       .then(parsedJSON => console.log(parsedJSON.network.stations))
-      .then(parsedJSON => parsedJSON.network.stations.map(station => (
+      .then(parsedJSON => parsedJSON.results.map(station => (
         {
           name: `${network.station.name}`,
           free_bikes: `${network.station.free_bikes}`,
           empty_slots: `${network.station.empty_slots}`
       }
     )))
-    .then(stations => this.setState({
-      stations,
-      isLoading: false
-    }))
-      .catch(error => console.log('parsing failed', error))
-  }
+      .then(stations => this.setState({
+        stations,
+        isLoading: false
+      }))
+        .catch(error => console.log('parsing failed', error))
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        localStorage.setItem('contacts', JSON.stringify(nextState.stations));
+        localStorage.setItem('stationsDate', Date.now());
+    }
 
     render() {
       const {isLoading, stations} = this.state;
