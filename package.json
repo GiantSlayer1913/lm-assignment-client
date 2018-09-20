@@ -1,7 +1,7 @@
 {
-  "name": "webpack-starter",
+  "name": "lm-takehome-assesment",
   "version": "1.0.0",
-  "description": "Webpack project starter.",
+  "description": "This application still needs work, but I'm proud of my progress.",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server",
@@ -35,8 +35,11 @@
     "webpack-dev-server": "2.2.0"
   },
   "dependencies": {
+    "babel": "6.23.0",
+    "npm": "6.4.1",
     "prop-types": "15.5.10",
     "react": "15.4.2",
     "react-dom": "15.4.2"
-  }
+  },
+  "keywords": []
 }
