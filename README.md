@@ -4,6 +4,7 @@
 <ul>
 <li>Npm install</li>
 <li>Install babel, react, react-router, react-dom & webpack</li>
+<li>To run locally, ``npm run dev``</li>
 </ul>
 
 ### Personal thoughts:

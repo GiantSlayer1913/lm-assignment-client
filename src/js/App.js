@@ -12,6 +12,13 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount() {
+        localStorage.getItem('staions') && this.setState({
+            contacts: JSON.parse(localStorage.getItem('stations')),
+            isLoading: false
+        })
+    }
+
   componentDidMount() {
     this.fetchData();
   }
