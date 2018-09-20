@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server",
     "prod": "webpack -p"
   },
-  "author": "Petr Tichy",
+  "author": "Mike Fisch",
   "license": "ISC",
   "devDependencies": {
     "babel": "6.5.2",
