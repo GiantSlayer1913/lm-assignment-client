@@ -42,7 +42,7 @@ class App extends React.Component {
       fetch('https://api.citybik.es/v2/networks/hubway?fields=stations')
       .then(res => res.json())
       .then(parsedJSON => console.log(parsedJSON.network.stations))
-      .then(parsedJSON => parsedJSON.results.map(station => (
+      .then(parsedJSON => parsedJSON.network.stations.map(station => (
         {
           name: `${network.station.name}`,
           free_bikes: `${network.station.free_bikes}`,
@@ -77,8 +77,10 @@ class App extends React.Component {
                       {
                         !isLoading && stations.length > 0 ? stations.map(station => {
                           const {name, free_bikes, empty_slots} = station;
-                          return <Collapsible key={station} title={name}>
-                              <p>{free_bikes}<br />{empty_slots}</p>
+                          return
+                          <Collapsible
+                          key={station} title={name}>
+                          <p>{free_bikes}<br />{empty_slots}</p>
                           </Collapsible>
                         }) : null
 
